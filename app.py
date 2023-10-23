@@ -29,7 +29,6 @@ def write_response(response_input,enc):
     resp_len_box.markdown('**Spotřeba tokenů na Odpověď**')
     if response_input:
         resp_enc = enc.encode(response_input)
-        prompt_enc_box.markdown('**Tokeny v Promptu**')
         resp_enc_box.text_area(label='Tokeny v Odpovědi', value=str(resp_enc),height=200 )
         resp_len = len(resp_enc)
         re_cena = resp_len * cr * models[select_model]['output'] / 1000
@@ -41,7 +40,6 @@ def write_prompt(prompt_input,enc):
      prompt_len_box.markdown('**Spotřeba tokenů na Prompt**')
      if prompt_input:
         prompt_enc = enc.encode(prompt_input)
-        prompt_enc_box.markdown('**Tokeny v Promptu**')
         prompt_enc_box.text_area(label='Tokeny v Promptu', value=str(prompt_enc),height=200 )
         prompt_len = len(prompt_enc)
         pro_cena = prompt_len * cr * models[select_model]['input'] / 1000
