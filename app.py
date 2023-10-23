@@ -66,10 +66,13 @@ hide_streamlit_style = """
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-# Step 3: Create UI elements
+
+st.subheader('Vložte znění vašeho promptu')
 prompt_input = st.text_area('Vložte Prompt',
                               height=150,
                               label_visibility="collapsed")
+
+st.subheader('Vložte znění odpovědi chatGPT')
 response_input = st.text_area('Vložte Odpověď modelu',
                               height=150,
                               label_visibility="collapsed")
