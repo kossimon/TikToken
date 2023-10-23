@@ -27,13 +27,10 @@ cr = cr_json["conversion_rates"]['CZK']
 
 def write_response(response_input,enc):
     resp_len_box.markdown('**Spotřeba tokenů na Odpověď**')
-
-    report = []
     if response_input:
         resp_enc = enc.encode(response_input)
-        for i in resp_enc:
-            report.append([i])
-            resp_enc_box.text_area(label='Tokeny v Odpovědi', value=report,height=200 )
+        prompt_enc_box.markdown('**Tokeny v Promptu**')
+        resp_enc_box.text_area(label='Tokeny v Odpovědi', value=str(resp_enc),height=200 )
         resp_len = len(resp_enc)
         re_cena = resp_len * cr * models[select_model]['output'] / 1000
         resp_len_box.markdown(f'**{resp_len} tokenů.**')
@@ -42,13 +39,10 @@ def write_response(response_input,enc):
 
 def write_prompt(prompt_input,enc):
      prompt_len_box.markdown('**Spotřeba tokenů na Prompt**')
-     report = []
      if prompt_input:
         prompt_enc = enc.encode(prompt_input)
-        for i in prompt_enc:
-            report.append([i])
-            prompt_enc_box.markdown('**Tokeny v Promptu**')
-            prompt_enc_box.text_area(label='Tokeny v Promptu', value=report,height=200 )
+        prompt_enc_box.markdown('**Tokeny v Promptu**')
+        prompt_enc_box.text_area(label='Tokeny v Promptu', value=str(prompt_enc),height=200 )
         prompt_len = len(prompt_enc)
         pro_cena = prompt_len * cr * models[select_model]['input'] / 1000
         prompt_len_box.markdown(f'**{prompt_len} tokenů.**')
@@ -99,7 +93,6 @@ with prmpt2:
 
 resp1, resp2 = st.columns([1,1])
 with resp1:
-
     prompt_enc_box = st.empty()
 with resp2:
     resp_enc_box = st.empty()
@@ -107,6 +100,7 @@ with resp2:
 if convert_button:
     if select_model:
         enc = tiktoken.encoding_for_model(models[select_model]['name'])
+        
         pro_cena = write_prompt(prompt_input,enc)
         re_cena = write_response(response_input,enc)
         if pro_cena and re_cena:
