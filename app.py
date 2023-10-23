@@ -3,6 +3,7 @@ import tiktoken
 import os
 from dotenv import load_dotenv
 import requests
+import time
 
 def time_execution(function, *args):
     start_time = time.time()  # record the start time (in seconds)
@@ -11,10 +12,9 @@ def time_execution(function, *args):
     duration = end_time - start_time  # calculate the duration
     return result, duration
 
-enc_3, time_enc_3 = time_execution(tiktoken.encoding_for_model('gpt-3.5-turbo'))
-enc_4, time_enc_4 = time_execution(tiktoken.encoding_for_model('gpt-4'))
+enc_3, time_enc_3 = time_execution(tiktoken.encoding_for_model,'gpt-3.5-turbo')
+enc_4, time_enc_4 = time_execution(tiktoken.encoding_for_model,'gpt-4')
 
-st.write(f'Loaded encoder in {time_enc_3}, Loaded encoder in {time_enc_4}')
 
 models = {'GPT-4 (až 32 tisíc tokenů)':{
                     'name':'gpt-4',
@@ -39,8 +39,8 @@ def get_currency():
     cr = cr_json["conversion_rates"]['CZK']
     return cr
 
-cr, time_cr = time_execution(get_currency())
-st.write(f'Loaded currency in {time_cr}')
+cr, time_cr = time_execution(get_currency)
+st.write(f'Loaded encoder in {time_enc_3:.8f}, Loaded encoder in {time_enc_4:.8f}, Loaded currency in {time_cr:.3f}')
 
 
 def write_response(response_input,enc):
@@ -51,7 +51,7 @@ def write_response(response_input,enc):
         resp_enc_box.text_area(label='Tokeny v Odpovědi', value=str(resp_enc),height=200 )
         resp_len = len(resp_enc)
         re_cena = resp_len * cr * models[select_model]['output'] / 1000
-        resp_len_box.markdown(f'**{resp_len: } tokenů.**')
+        resp_len_box.markdown(f'**{resp_len} tokenů.**')
         resp_cena_box.subheader(f'**{re_cena:.8f} KČ.**')
         return re_cena
 
@@ -63,7 +63,7 @@ def write_prompt(prompt_input,enc):
         prompt_enc_box.text_area(label='Tokeny v Promptu', value=str(prompt_enc),height=200 )
         prompt_len = len(prompt_enc)
         pro_cena = prompt_len * cr * models[select_model]['input'] / 1000
-        prompt_len_box.markdown(f'**{prompt_len: } tokenů.**')
+        prompt_len_box.markdown(f'**{prompt_len} tokenů.**')
         prompt_cena_box.subheader(f'**{pro_cena:.8f} KČ.**')
         prompt_cena_box.markdown('___')
         return pro_cena
@@ -121,7 +121,7 @@ with resp2:
 
 if convert_button:
     if select_model:
-        enc = model[select_model]['encoder']       
+        enc = models[select_model]['encoder']       
         pro_cena = write_prompt(prompt_input,enc)
         re_cena = write_response(response_input,enc)
         if pro_cena and re_cena:
