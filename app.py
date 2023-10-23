@@ -96,13 +96,13 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 st.subheader('Vložte znění vašeho promptu')
 prompt_input = st.text_area('Vložte Prompt',
-                            max_chars = 21000,
+                            max_chars = 100000,
                             height=150,
                             label_visibility="collapsed")
 
 st.subheader('Vložte znění odpovědi chatGPT')
 response_input = st.text_area('Vložte Odpověď modelu',
-                              max_chars = 21000,
+                              max_chars = 100000,
                               height=150,
                               label_visibility="collapsed")
 
