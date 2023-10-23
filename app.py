@@ -26,8 +26,9 @@ cr = cr_json["conversion_rates"]['CZK']
 
 
 def write_response(response_input,enc):
-    resp_len_box.markdown('**Spotřeba tokenů na Odpověď**')
+    resp_len_box.markdown('___')
     if response_input:
+        resp_len_box.markdown('**Spotřeba tokenů na Odpověď**')
         resp_enc = enc.encode(response_input)
         resp_enc_box.text_area(label='Tokeny v Odpovědi', value=str(resp_enc),height=200 )
         resp_len = len(resp_enc)
@@ -37,14 +38,16 @@ def write_response(response_input,enc):
         return re_cena
 
 def write_prompt(prompt_input,enc):
-     prompt_len_box.markdown('**Spotřeba tokenů na Prompt**')
-     if prompt_input:
+    prompt_len_box.markdown('___')
+    if prompt_input:
+        prompt_len_box.markdown('**Spotřeba tokenů na Prompt**')
         prompt_enc = enc.encode(prompt_input)
         prompt_enc_box.text_area(label='Tokeny v Promptu', value=str(prompt_enc),height=200 )
         prompt_len = len(prompt_enc)
         pro_cena = prompt_len * cr * models[select_model]['input'] / 1000
         prompt_len_box.markdown(f'**{prompt_len} tokenů.**')
         prompt_cena_box.subheader(f'**{pro_cena:.8f} KČ.**')
+        prompt_len_box.markdown('___')
         return pro_cena
 
 def write_cena(pro_cena,re_cena):
