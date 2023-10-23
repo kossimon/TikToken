@@ -47,7 +47,7 @@ def write_prompt(prompt_input,enc):
         pro_cena = prompt_len * cr * models[select_model]['input'] / 1000
         prompt_len_box.markdown(f'**{prompt_len} tokenů.**')
         prompt_cena_box.subheader(f'**{pro_cena:.8f} KČ.**')
-        prompt_len_box.markdown('___')
+        prompt_cena_box.markdown('___')
         return pro_cena
 
 def write_cena(pro_cena,re_cena):
