@@ -20,6 +20,9 @@ models = {'GPT-4 (až 32 tisíc tokenů)':{
 load_dotenv()
 CURR_API_KEY = os.getenv("CURR_API_KEY")
 
+enc = tiktoken.encoding_for_model(models[select_model]['name'])
+
+
 cr_url = f'https://v6.exchangerate-api.com/v6/{CURR_API_KEY}/latest/USD'
 cr_json = requests.get(cr_url).json()
 cr = cr_json["conversion_rates"]['CZK']
@@ -102,9 +105,7 @@ with resp2:
     resp_enc_box = st.empty()
 
 if convert_button:
-    if select_model:
-        enc = tiktoken.encoding_for_model(models[select_model]['name'])
-        
+    if select_model:        
         pro_cena = write_prompt(prompt_input,enc)
         re_cena = write_response(response_input,enc)
         if pro_cena and re_cena:
