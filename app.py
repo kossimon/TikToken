@@ -93,42 +93,44 @@ hide_streamlit_style = """
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
+col,col2 = st.columns([1,1])
 
-st.subheader('Vložte znění vašeho promptu')
-prompt_input = st.text_area('Vložte Prompt',
-                            max_chars = 100000,
-                            height=150,
-                            label_visibility="collapsed")
+with col:
+    st.subheader('Vložte znění vašeho promptu')
+    prompt_input = st.text_area('Vložte Prompt',
+                                max_chars = 100000,
+                                height=150,
+                                label_visibility="collapsed")
 
-st.subheader('Vložte znění odpovědi chatGPT')
-response_input = st.text_area('Vložte Odpověď modelu',
-                              max_chars = 100000,
-                              height=150,
-                              label_visibility="collapsed")
+    st.subheader('Vložte znění odpovědi chatGPT')
+    response_input = st.text_area('Vložte Odpověď modelu',
+                                max_chars = 100000,
+                                height=150,
+                                label_visibility="collapsed")
 
-select_model = st.selectbox('Vyberte model', ('GPT-4 (až 32 tisíc tokenů)', 'chatGPT-3.5 (až 16 tisíc tokenů)'),index = None, placeholder="Vyberte model")
+    select_model = st.selectbox('Vyberte model', ('GPT-4 (až 32 tisíc tokenů)', 'chatGPT-3.5 (až 16 tisíc tokenů)'),index = None, placeholder="Vyberte model")
 
-convert_button = st.button('Spočítat tokeny')
-
-
-
-prmpt1, prmpt2 = st.columns([1,1])
-
-with prmpt1:
-    prompt_len_box = st.container()
-    prompt_cena_box = st.container()
-
-with prmpt2:
-    resp_len_box = st.container()
-    resp_cena_box = st.container()
-    cena_celkem_box = st.container()
+    convert_button = st.button('Spočítat tokeny')
 
 
-resp1, resp2 = st.columns([1,1])
-with resp1:
-    prompt_enc_box = st.empty()
-with resp2:
-    resp_enc_box = st.empty()
+with col2:
+    prmpt1, prmpt2 = st.columns([1,1])
+
+    with prmpt1:
+        prompt_len_box = st.container()
+        prompt_cena_box = st.container()
+
+    with prmpt2:
+        resp_len_box = st.container()
+        resp_cena_box = st.container()
+        cena_celkem_box = st.container()
+
+
+    resp1, resp2 = st.columns([1,1])
+    with resp1:
+        prompt_enc_box = st.empty()
+    with resp2:
+        resp_enc_box = st.empty()
 
 if convert_button:
     if select_model:
