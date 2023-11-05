@@ -61,7 +61,13 @@ def write_response(response_input,enc):
         resp_len = len(resp_enc)
         re_cena = resp_len * cr * models[select_model]['output'] / 1000
         resp_len_box.markdown(f'**{resp_len} tokenů.**')
-        resp_cena_box.subheader(f'**{re_cena:.8f} {currency}**')
+
+        if re_cena > 0.00005:
+            re_cena_formatted = f'{re_cena:.4f}'
+        else:
+            re_cena_formatted = f'{re_cena:.8f}'
+
+        resp_cena_box.subheader(f'**{re_cena_formatted} {currency}**')
         return re_cena
 
 def write_prompt(prompt_input,enc):
@@ -73,15 +79,27 @@ def write_prompt(prompt_input,enc):
         prompt_len = len(prompt_enc)
         pro_cena = prompt_len * cr * models[select_model]['input'] / 1000
         prompt_len_box.markdown(f'**{prompt_len} tokenů.**')
-        prompt_cena_box.subheader(f'**{pro_cena:.8f} {currency}**')
+
+        if pro_cena > 0.00005:
+            pro_cena_formatted = f'{pro_cena:.4f}'
+        else:
+            pro_cena_formatted = f'{pro_cena:.8f}'
+
+        prompt_cena_box.subheader(f'**{pro_cena_formatted} {currency}**')
         prompt_cena_box.markdown('___')
         return pro_cena
 
 def write_cena(pro_cena,re_cena):
     cena_celkem = pro_cena + re_cena
+
+    if cena_celkem > 0.00005:
+        cena_celkem_formatted = f'{cena_celkem:.4f}'
+    else:
+        cena_celkem_formatted = f'{cena_celkem:.8f}'
+
     cena_celkem_box.markdown('___')
     cena_celkem_box.markdown('**Celková cena**')
-    cena_celkem_box.subheader(f'**{cena_celkem:.8f} {currency}**')
+    cena_celkem_box.subheader(f'**{cena_celkem_formatted} {currency}**')
     cena_celkem_box.markdown('___')
 
 hide_streamlit_style = """
