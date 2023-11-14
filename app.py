@@ -132,7 +132,9 @@ with col:
                                 height=150,
                                 label_visibility="collapsed")
 
-    select_model = st.selectbox('Vyberte model', ('GPT-4 (až 32 tisíc tokenů)', 'chatGPT-3.5 (až 16 tisíc tokenů)'),index = None, placeholder="Vyberte model")
+    models_available = list(models.keys())
+
+    select_model = st.selectbox('Vyberte model', models_available,index = None, placeholder="Vyberte model")
 
     convert_button = st.button('Spočítat tokeny')
 
