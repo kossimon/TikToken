@@ -19,14 +19,20 @@ enc_4= tiktoken.encoding_for_model('gpt-4')
 models = {'GPT-4 (až 32 tisíc tokenů)':{
                     'name':'gpt-4',
                     'encoder': enc_4,
-                    'input': 0.06,
-                    'output': 0.12
+                    'input': 0.03,
+                    'output': 0.06
                     },
         'chatGPT-3.5 (až 16 tisíc tokenů)':{    
                     'name':'gpt-3.5-turbo',
                     'encoder': enc_3,
-                    'input' : 0.003,
-                    'output': 0.004,
+                    'input' : 0.001,
+                    'output': 0.002,
+                    }
+         'GPT-4 Turbo (až 128 tisíc tokenů)':{    
+                    'name':'gpt-4-1106-preview',
+                    'encoder': enc_4,
+                    'input' : 0.001,
+                    'output': 0.003,
                     }
         }
 
