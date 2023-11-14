@@ -31,8 +31,8 @@ models = {'GPT-4 (až 32 tisíc tokenů)':{
          'GPT-4 Turbo (až 128 tisíc tokenů)':{    
                     'name':'gpt-4-1106-preview',
                     'encoder': enc_4,
-                    'input' : 0.001,
-                    'output': 0.003,
+                    'input' : 0.01,
+                    'output': 0.03,
                     }
         }
 
